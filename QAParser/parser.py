@@ -1,9 +1,9 @@
 import urllib2
-from xml.dom.minidom import parse
+from bs4 import BeautifulSoup
 
 def makeDOM(url):
   dom = urllib2.urlopen(url).read()
-  return parse(dom)
+  return BeautifulSoup(dom)
   
 def getQuestion(DOM):
   return 'not implemented'
@@ -11,4 +11,5 @@ def getQuestion(DOM):
 def getAnswer(DOM):
   return 'not implemented'
 
-print makeDOM('http://www.google.com')
+#a simple test
+print makeDOM('http://www.december.com/html/demo/hello.html')

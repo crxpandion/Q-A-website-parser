@@ -1,10 +1,11 @@
 This is a parser intended to grab the questions and answers from QA websites (eg yahoo.answers.com, ask.com, ...) along with any necessary meta data
 
-The parser is inteded to provide a framework for grabbing the data from a QA website. 
+The parser is intended to provide a framework for grabbing the data from a QA website. 
 Modules should be written for a specific QA website and plug into the parser framework
 
 QAParser/ holds the framework that should take care of the DB insertion and running the parser on a given url
 
 QAModules/ holds the modules for a given website structured in a not-yet-determined fashion
 
-
+note we are using BeatifulSoup to parse webpages:
+http://www.crummy.com/software/BeautifulSoup/documentation.html#Quick Start

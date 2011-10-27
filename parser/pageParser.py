@@ -18,16 +18,16 @@ class parsePage:
   
   def run(self):
     self.question = self.getQuestion()
-    self.answer = self.getAnswer()
+    self.answers = self.getAnswers()
     self.insertQuestion()
-    self.insertAnswer()
+    self.insertAnswers()
 
   # insert stuff into DB 
   def insertQuestion(self):
     print 'insertQuestion is not implemented yet'
 
-  def insertAnswer(self):
-    print 'insertAnswer is not implemented yet'
+  def insertAnswers(self):
+    print 'insertAnswers is not implemented yet'
 
   # these will be overloaded in the modules 
   def getQuestion(self):

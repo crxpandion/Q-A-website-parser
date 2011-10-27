@@ -3,8 +3,7 @@ import urllib2
 from bs4 import BeautifulSoup
 
 def makeDOM(url):
-  dom = urllib2.urlopen(url).read()
-  return BeautifulSoup(dom)
+  return BeautifulSoup(urllib2.urlopen(url).read())
   
 def getQuestion(DOM):
   return 'not implemented'
@@ -12,5 +11,5 @@ def getQuestion(DOM):
 def getAnswer(DOM):
   return 'not implemented'
 
-#a simple test
+# a simple test
 print makeDOM('http://www.december.com/html/demo/hello.html')

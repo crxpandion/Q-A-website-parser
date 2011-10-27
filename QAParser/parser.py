@@ -1,14 +1,22 @@
 import urllib2
 from bs4 import BeautifulSoup
 
-def makeDOM(url):
-  return BeautifulSoup(urllib2.urlopen(url).read())
-  
-def getQuestion(DOM):
-  return 'not implemented'
 
-def getAnswer(DOM):
-  return 'not implemented'
+class parsePage():
+  def __init__(self, url):
+    self.url = url
+    self.dom = self.makeDOM()
+
+  def makeDOM(self):
+    return BeautifulSoup(urllib2.urlopen(self.url).read())
+  
+  def getQuestion(self):
+    print 'not implemented'
+
+  def getAnswer(self):
+    print 'not implemented'
 
 # a simple test
-print makeDOM('http://www.december.com/html/demo/hello.html')
+p = parsePage('http://www.december.com/html/demo/hello.html')
+print p.dom
+

@@ -8,4 +8,6 @@ QAParser/ holds the framework that should take care of the DB insertion and runn
 QAModules/ holds the modules for a given website structured in a not-yet-determined fashion
 
 note we are using BeatifulSoup to parse webpages:
-http://www.crummy.com/software/BeautifulSoup/documentation.html#Quick Start
+http://www.crummy.com/software/BeautifulSoup/documentation.html#Quick
+To install cd into BeautifulSoup-4.0 and run 
+python setup.py install

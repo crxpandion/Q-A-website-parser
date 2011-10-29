@@ -3,27 +3,56 @@ import yahoo_answers
 import aol_answers
 import unittest
 
-
-class checkQuestionScrape(unittest.TestCase):
-    def __init__(self, url, question):
+class checkScrape(unittest.TestCase):
+    def __init__(self, url, question, answer):
         self.url = url
         self.question = question
+        self.answer = answer
         self.runTest()
         
     def runTest(self):
-        if 'aolanswers.com' in self.url:
-            assert aol_answers.parseQAPage(self.url).getQuestion()['question'] == self.question, 'The aol question found did not match'
-        if 'answers.yahoo.com' in self.url:
-            assert yahoo_answers.parseQAPage(self.url).getQuestion()['question'] == self.question, 'The yahoo question found did not match'
+        if 'http://aolanswers.com' in self.url:
+            p = aol_answers.parseQAPage(self.url)
+            self.checkQuestion(p.getQuestion())
+            self.checkAnswer(p.getAnswers())
+        if 'http://answers.yahoo.com' in self.url:
+            p = yahoo_answers.parseQAPage(self.url)
+            self.checkQuestion(p.getQuestion())
+            self.checkAnswer(p.getAnswers())
             
+    def checkQuestion(self, question):
+        assert question['question_text'] == self.question['question_text'], 'Question text did not match'
+        assert question['datetime'] == self.question['datetime'], 'Datetime did not match'
+        assert question['user'] == self.question['user'], 'User did not match'
+        assert question == self.question, 'Question did not match' # could probably remove this...
+
+    def checkAnswer(self, answer):
+        print 'checkAnswer not implemented'
 
 
-#  checkAnswerScrape(unittest.TestCase):
-#    def...
 
-checkQuestionScrape('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250', 'Are the poor people better off today rather than four years ago?')
-checkQuestionScrape('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS', 'Where were you on 9/11?')
+question = {'question_text': 'Are the poor people better off today rather than four years ago?', \
+            'user': None, \
+            'datetime': 'Posted 3 days ago'}
+answer = ''
+checkScrape('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250', question, answer)
+
+
+#checkScrape('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS', \
+#                     {'question_text': '', \
+#                      'user': '', \
+#                      'datetime': ''})
+
+
 print 'All Tests Passed'
+
+
+
+
+
+
+
+
 
 #Sites to use:
 # small tests - we should really get a testing package going...

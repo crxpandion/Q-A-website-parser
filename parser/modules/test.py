@@ -27,22 +27,23 @@ class checkScrape(unittest.TestCase):
         assert question == self.question, 'Question did not match' # could probably remove this...
 
     def checkAnswer(self, answer):
-        print 'checkAnswer not implemented'
+        print '!!!!checkAnswer not implemented!!!!'
 
 
-
+# AOL - no user
 question = {'question_text': 'Are the poor people better off today rather than four years ago?', \
             'user': None, \
-            'datetime': 'Posted 3 days ago'}
+            'datetime': 'Posted 4 days ago'}
 answer = ''
 checkScrape('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250', question, answer)
 
 
-#checkScrape('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS', \
-#                     {'question_text': '', \
-#                      'user': '', \
-#                      'datetime': ''})
-
+# Yahoo
+question = {'question_text': 'Where were you on 9/11? Sunday marks the tenth anniversary of the 9/11 attacks. We know that it\'s still in everyone\'s memory. Please share with us your recollections. What do you remember most about that day?', \
+            'user': 'profile-AA10030221', \
+            'datetime': '2011-09-07 19:02:54'}
+answer = ''
+checkScrape('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS', question, answer)
 
 print 'All Tests Passed'
 

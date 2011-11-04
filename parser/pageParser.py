@@ -3,16 +3,6 @@ import urllib2
 from bs4 import BeautifulSoup
 
 class parsePage:
-  class subClassError(Exception):
-    def __init__(self, value):
-      self.value = value
-    def __str__(self):
-      return repr(self.value)
-
-  def __init__(self, url):
-    self.url = url
-    self.dom = self.makeDOM()
-
   def makeDOM(self):
     return BeautifulSoup(urllib2.urlopen(self.url).read())
   
@@ -41,4 +31,16 @@ class parsePage:
 
   def getAnswer(self):
     raise subClassError('getAnswer is not implemented')
+
+  # error reporter class for sexiness 
+  class subClassError(Exception):
+    def __init__(self, value):
+      self.value = value
+    def __str__(self):
+      return repr(self.value)
+
+  def __init__(self, url):
+    self.url = url
+    self.dom = self.makeDOM()
+
 

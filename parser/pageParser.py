@@ -17,10 +17,16 @@ class parsePage:
     return BeautifulSoup(urllib2.urlopen(self.url).read())
   
   def run(self):
-    self.question = self.getQuestion()
-    self.answers = self.getAnswers()
-    self.insertQuestion()
-    self.insertAnswers()
+    try:
+        self.question = self.getQuestion()
+        self.answers = self.getAnswers()
+        self.insertQuestion()
+        self.insertAnswers()
+        return True
+    except:
+        #raise Error Error('Error in Run')
+        print 'scraping or inserting failed...'
+        return False
 
   # insert stuff into DB 
   def insertQuestion(self):

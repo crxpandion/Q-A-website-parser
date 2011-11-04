@@ -33,7 +33,8 @@ class checkScrape(unittest.TestCase):
 # AOL - no user
 question = {'question_text': 'Are the poor people better off today rather than four years ago?', \
             'user': None, \
-            'datetime': 'Posted 4 days ago'}
+            'datetime': '2011-10-26 00:00:00'}
+#answer = '{'answer': u'I think in general, you have a few marbles loose upstairs.....You must of been dong some heavy relaps in drugs, or slept for all those years.....Good, Mr. Van Winkle...', 'upVotes': u'0', 'datetime': '2011-10-26 00:00:00'}'
 answer = ''
 checkScrape('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250', question, answer)
 

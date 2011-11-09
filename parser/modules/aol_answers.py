@@ -27,7 +27,6 @@ class parseQAPage(parsePage):
             ans['upVotes'] = answer.find('span', 'QBRankVoteHeader').contents[0][1]
             user['user'] = answer.find('a', attrs={'title':True})
             a.append(ans)
-        print a[0]
         return a
 
 def getPostDate(postedOn):

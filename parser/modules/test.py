@@ -2,6 +2,7 @@
 import yahoo_answers
 import aol_answers
 import unittest
+import datetime
 
 class checkScrape(unittest.TestCase):
     def __init__(self, url, question, answer):
@@ -22,17 +23,22 @@ class checkScrape(unittest.TestCase):
             
     def checkQuestion(self, question):
         assert question['question_text'] == self.question['question_text'], 'Question text did not match'
-        # Actually, this check should make sure make sure that the date is within a day of the date scraped...
-        #assert question['datetime'] == self.question['datetime'], 'Datetime did not match'
+        assert dateWithinOneDay(question['datetime'], self.question['datetime']), 'Datetime did not match ' + self.question['datetime'] + ' ' + question['datetime']
         assert question['user'] == self.question['user'], 'User did not match'
-
 
     def checkAnswer(self, answer):
         assert answer['answer'] == self.answer['answer'], 'Answer text did not match'
         assert answer['upVotes'] == self.answer['upVotes'], 'UpVotes did not match'
-        assert answer['datetime'] == self.answer['datetime'], 'Datetime did not match'
+        assert dateWithinOneDay(answer['datetime'], self.answer['datetime']), 'Datetime did not match ' + self.answer['datetime'] + ' ' + answer['datetime']
 
-
+def dateWithinOneDay(answer, scraped):
+    time_format = "%Y-%m-%d %H:%M:%S"
+    answer = datetime.datetime.strptime(answer, time_format)
+    scraped = datetime.datetime.strptime(scraped, time_format)
+    return abs((answer - scraped).days) < 2
+    
+    
+    
 # AOL - no user
 question = {'question_text': 'Are the poor people better off today rather than four years ago?', \
             'user': None, \

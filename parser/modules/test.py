@@ -13,13 +13,19 @@ class checkScrape(unittest.TestCase):
         
     def runTest(self):
         if 'http://aolanswers.com' in self.url:
-            p = aol_answers.parseQAPage(self.url)
-            self.checkQuestion(p.getQuestion())
-            self.checkAnswer(p.getAnswers()[0])
+            self.checkQuestionAndAnswer(aol_answers.parseQAPage(self.url))
         if 'http://answers.yahoo.com' in self.url:
-            p = yahoo_answers.parseQAPage(self.url)
-            self.checkQuestion(p.getQuestion())
-            self.checkAnswer(p.getAnswers()[0])
+            self.checkQuestionAndAnswer(yahoo_answers.parseQAPage(self.url))
+        if 'http://www.ask.com/answers/' in self.url:
+	        self.checkQuestionAndAnswer(ask_answers.parseQAPage(self.url))
+    	if 'http://answers.ask.com/' in self.url:
+    	    self.checkQuestionAndAnswer(ask_answers.parseQAPage(self.url))
+    	if 'http://askville.amazon.com/' in self.url:
+    	    self.checkQuestionAndAnswer(askville_answers.parseQAPage(self.url))
+    
+    def checkQuestionAndAnswer(self, p):
+        self.checkQuestion(p.getQuestion())
+    	self.checkAnswer(p.getAnswers()[0])
             
     def checkQuestion(self, question):
         assert question['question_text'] == self.question['question_text'], 'Question text did not match'
@@ -38,7 +44,22 @@ def dateWithinOneDay(answer, scraped):
     return abs((answer - scraped).days) < 2
     
     
-    
+
+# Askville from Amazon
+#question = {'question_text': 'Will the Universe keep expanding?', \
+#	    'user': 'NormanL', \
+#	    'datetime': '12 months ago'}
+#answer = ''
+#checkScrape('http://askville.amazon.com/formation-sun-dog/AnswerViewer.do?requestId=5657915', question, answer)
+
+# Ask
+#question = {'question_text': 'What is the longest River?', \
+#	    'user': 'eilleenc', \
+#	    'datetime': 'Posted 2 months ago'}
+#answer = ''
+#checkScrape('http://answers.ask.com/Science/Other/how_big_is_the_sun', question, answer)
+
+
 # AOL - no user
 question = {'question_text': 'Are the poor people better off today rather than four years ago?', \
             'user': None, \
@@ -50,10 +71,10 @@ checkScrape('http://aolanswers.com/questions/poor_people_better_today_four_years
 
 
 # Yahoo
-question = {'question_text': 'Where were you on 9/11? Sunday marks the tenth anniversary of the 9/11 attacks. We know that it\'s still in everyone\'s memory. Please share with us your recollections. What do you remember most about that day?', \
-            'user': 'profile-AA10030221', \
-            'datetime': '2011-09-07 19:02:54'}
-answer = ''
+#question = {'question_text': 'Where were you on 9/11? Sunday marks the tenth anniversary of the 9/11 attacks. We know that it\'s still in everyone\'s memory. Please share with us your recollections. What do you remember most about that day?', \
+#            'user': 'profile-AA10030221', \
+#            'datetime': '2011-09-07 19:02:54'}
+#answer = ''
 #checkScrape('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS', question, answer)
 
 print 'All Tests Passed'

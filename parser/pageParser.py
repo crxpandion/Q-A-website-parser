@@ -14,7 +14,7 @@ class parsePage:
         self.insertAnswers()
         return True
     except:
-        #raise Error Error('Error in Run')
+        raise subClassError('run failed')
         print 'scraping or inserting failed...'
         return False
 

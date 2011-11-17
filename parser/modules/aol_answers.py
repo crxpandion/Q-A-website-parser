@@ -30,5 +30,6 @@ class parseQAPage(parsePage):
         return a
 
 def getPostDate(postedOn):
+    print 'wtf'
     return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
 

@@ -10,8 +10,8 @@ class parseQAPage(parsePage):
         question_field = self.dom.find('div', id='yan-question')
         title = question_field.find('h1', 'subject').contents[0].lstrip().rstrip()
         questionLong = question_field.find('div', 'content').contents[0].lstrip().rstrip()
-        q['question_text'] = title + ' ' + questionLong
         datetime = question_field.find('abbr')['title'].split(' ')
+        q['question_text'] = title + ' ' + questionLong
         q['datetime'] = datetime[0] + ' ' + datetime[1]
         q['user'] = question_field.find('div', 'profile vcard')['id']
         return q

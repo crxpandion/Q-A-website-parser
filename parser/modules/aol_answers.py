@@ -20,12 +20,11 @@ class parseQAPage(parsePage):
         answers = self.dom.findAll( 'div', 'AnswersSectionContentInner')
         a = []
         for answer in answers:
-            user = {}
             ans = {}
             ans['datetime'] = getPostDate(answer.find('a', 'PostedOn').string)
             ans['answer'] = answer.find('p').string
             ans['upVotes'] = answer.find('span', 'QBRankVoteHeader').contents[0][1]
-            user['user'] = answer.find('a', attrs={'title':True})
+            ans['user'] = answer.find('a', attrs={'title':True})
             a.append(ans)
         return a
 

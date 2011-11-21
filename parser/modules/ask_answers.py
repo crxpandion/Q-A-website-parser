@@ -3,29 +3,39 @@ import sys
 sys.path.append('..')
 from bs4 import BeautifulSoup
 from pageParser import parsePage
+import datetime
 
 class parseQAPage(parsePage):
-	def getQuestion(self):
-		q = {}
-		print self.dom.__str__()
-		#print self.dom.prettify()
-		question_field = self.dom.find('div', id='qnaQuesComm')
-		title = question_field.find('div', 'txt_xxlg abstract pl15 pb10').contents[0].lstrip().rstrip()
-		user = question_field.find('div', 'rr_life_title b').contents[0].replace(' asked','')
-		q['question_text'] = title
-		q['user'] = user
-		q['datetime'] = 'not_given'
-		#print title;
-		#print question_field.prettify()
-		#question_field = self.dom.find(attrs={"div": "class='question'"})
-		#print question_field
-		#title = question_field.find('p', 'questionText').contents[0].lstrip().rstrip()
-		#user = question_field.find('div', class='rr_life_title b').contents[0].lstrip().rstrip()
-		#print user
-		#q['question text'] = title
-		#q['user'] = user
-		#print "Question:"
-		#print q['question_text']
-		#print "User:"
-		#print q['user']
-		return q
+    def getQuestion(self):
+        q = {}
+        question_field = self.dom.find('div', id='qnaQuesComm')
+        q['question_text'] = question_field.find('div', 'txt_xxlg abstract pl15 pb10').contents[0].lstrip().rstrip()
+        q['user'] = question_field.find('div', 'rr_life_title b').contents[0].replace(' asked','')
+        q['datetime'] = 'not_given'
+        return q
+        
+    def getAnswers(self):
+        a = []
+        answers = self.dom.findAll('div', 'ansbrd')[1:]
+        for answer in answers:
+            ans = {}
+            info = answer.findAll('span')
+            ans['user'] = info[0].string.replace(':', '')
+            ans['answer'] = info[1].string
+            ans['datetime'] = getPostDate(answer.find('div', 'clrg pt10').string)
+            ans['upVotes'] =  answer.find('div', 'fl pr15 ml5').string
+            a.append(ans)
+        return a
+		
+def getPostDate(postedOn):
+    if 'year' in postedOn:
+        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]) * 365)).split()[0] + ' 00:00:00'        
+    elif 'month' in postedOn:
+        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]) * 30.5)).split()[0] + ' 00:00:00'
+    elif 'day' in postedOn:
+        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
+    else:
+        return str(datetime.datetime.now())
+        
+parseQAPage('http://answers.ask.com/Science/Other/how_big_is_the_sun').getQuestion()
+parseQAPage('http://answers.ask.com/Science/Other/how_big_is_the_sun').getAnswers()

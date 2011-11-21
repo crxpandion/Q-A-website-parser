@@ -38,12 +38,12 @@ class parseQAPage(parsePage):
 	    return a
 	    
 def getPostDate(postedOn):
-    if 'years' in postedOn:
+    if 'year' in postedOn:
         return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[0]) * 365)).split()[0] + ' 00:00:00'        
-    elif 'months' in postedOn:
+    elif 'month' in postedOn:
         return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[0]) * 30.5)).split()[0] + ' 00:00:00'
-    elif 'days' in postedOn:
-        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
+    elif 'day' in postedOn:
+        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[0]))).split()[0] + ' 00:00:00'
     else:
         return str(datetime.datetime.now())
 

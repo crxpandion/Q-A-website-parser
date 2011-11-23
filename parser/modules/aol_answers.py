@@ -24,10 +24,16 @@ class parseQAPage(parsePage):
             ans['datetime'] = getPostDate(answer.find('a', 'PostedOn').string)
             ans['answer'] = answer.find('p').string
             ans['upVotes'] = answer.find('span', 'QBRankVoteHeader').contents[0][1]
-            ans['user'] = answer.find('a', attrs={'title':True})
+            user = answer.find('a', attrs={'title':True})
+            ans['user'] = 'None'
+            if user:
+                ans['user'] = answer.find('a', attrs={'title':True})['title']
             a.append(ans)
         return a
 
 def getPostDate(postedOn):
     return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
 
+
+print parseQAPage('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').getQuestion()
+print parseQAPage('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').getAnswers()

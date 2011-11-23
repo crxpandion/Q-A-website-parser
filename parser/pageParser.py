@@ -10,7 +10,7 @@ class parsePage:
 
   def initDB(self):
     try:
-        conn = mdb.connect(host='localhost', user='root', passwd='bala', db='qaparser')
+        conn = mdb.connect(host='localhost', user='username', passwd='pass', db='qaparser')
 
     except:
         print "Error occured while connecting to the database!"

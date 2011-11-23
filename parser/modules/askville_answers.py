@@ -20,11 +20,12 @@ class parseQAPage(parsePage):
 
     def getAnswers(self):
         a = []
-        answers = self.dom.findAll('div', 'answer_outer')
+        answers = self.dom.findAll('div', 'answer_outer') 
         upVotes = self.dom.findAll('div', 'top_vote_bar')
         for answer in answers:
             ans = {}
             idNum = answer.find('h2', 'answer_summary')
+            otherIdNum = answer.find('div', 'answer_post')
             if idNum:
                 idNum = 'votes_' + str(idNum['id'].replace('answer_summary_', ''))
                 ans['upVotes'] = '0'
@@ -32,9 +33,21 @@ class parseQAPage(parsePage):
                     if str(idNum) == str(item['id']) and item.find('span'):
                         ans['upVotes'] = item.find('span').string.rstrip()
                         break
-                ans['answer'] = answer.find('h2', 'answer_summary').string + unicode(answer.find('div', 'mywrite_content')).replace('<!--  mywrite content -->', '')
+                    
+                ans['answer'] = answer.find('h2', 'answer_summary').string.rstrip().lstrip() + unicode(answer.find('div', 'mywrite_content')).replace('<!--  mywrite content -->', '').rstrip().lstrip().replace('\n', '').replace('\t', '').replace('\r', '').replace('<div class="mywrite_content">', '')
                 ans['datetime'] = getPostDate(answer.find('div', 'byline').contents[2].rstrip().lstrip())
                 ans['user'] = answer.find('div', 'byline').find('a', 'mininav').string.rstrip().lstrip()        
+                a.append(ans)
+            elif otherIdNum and answer.find('div', 'byline').find('span', 'byline'):
+                otherIdNum = 'votes_' + str(int(otherIdNum['id'].replace('bubble_', '')) - 1)
+                ans['upVotes'] = '0'
+                for item in upVotes:
+                    if otherIdNum == str(item['id']) and item.find('span'):
+                        ans['upVotes'] = item.find('span').string.rstrip()
+                        break
+                ans['answer'] = answer.find('div', 'answer_post').contents[0].string.rstrip().lstrip().replace('\n', '').replace('\t', '').replace('\r', '')
+                ans['datetime'] = getPostDate(answer.find('div', 'byline').find('span', 'byline').string.rstrip().lstrip())
+                ans['user'] = answer.find('div', 'byline').find('a', 'mininav').string.rstrip().lstrip()
                 a.append(ans)
         return a
         
@@ -48,7 +61,7 @@ def getPostDate(postedOn):
     else:
         return str(datetime.datetime.now())
         
-parseQAPage('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763').getAnswers()
-parseQAPage('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279').getAnswers()
-parseQAPage('http://askville.amazon.com/formation-sun-dog/AnswerViewer.do?requestId=5657915').getAnswers()
-parseQAPage('http://askville.amazon.com/Universe-expanding-result-Big-Bang-collapse-start/AnswerViewer.do?requestId=74787617').getAnswers()
+#print parseQAPage('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763').getAnswers()
+#print parseQAPage('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279').getAnswers()
+#print parseQAPage('http://askville.amazon.com/formation-sun-dog/AnswerViewer.do?requestId=5657915').getAnswers()
+print parseQAPage('http://askville.amazon.com/Universe-expanding-result-Big-Bang-collapse-start/AnswerViewer.do?requestId=74787617').getAnswers()

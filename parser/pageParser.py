@@ -3,12 +3,8 @@ import urllib2
 from bs4 import BeautifulSoup
 import MySQLdb as mdb
 import sys
-sys.path.append('modules')
 
 class parsePage:
-  def makeDOM(self):
-    return BeautifulSoup(html)
-
   def initDB(self):
     try:
         conn = mdb.connect(host='localhost', user='username', passwd='pass', db='qaparser')
@@ -17,7 +13,6 @@ class parsePage:
 
     cur = conn.cursor()
 
-    # Create table questions
     cur.execute(" CREATE TABLE questions(qid INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(qid), "
         " statement TEXT, username VARCHAR(50), userinfo VARCHAR(100), q_datetime DATE, "
         " website VARCHAR(200) ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ")
@@ -34,28 +29,14 @@ class parsePage:
     cur.close()
     conn.close()
 
-  def run(self):
-    try:
-        self.question = self.getQuestion()
-        self.answers = self.getAnswers()
-        self.insertQuestion()
-        self.insertAnswers()
-        return True
-    except Exception, e:
-	print e
-#        raise subClassError('run failed')
-#        print 'scraping or inserting failed...'
-        return False
   # insert stuff into DB
   def insertQuestion(self):
     conn = None
-
     try:
         conn = mdb.connect(host='localhost', user='root', passwd='bala', db='qaparser')
     except Exception,e:
         print e# + "Error occured while connecting to the database!"
-    self.question['question_text'] = self.question['question_text'].strip('\n')
-    self.question['question_text'] = self.question['question_text'].replace("\'", "")
+    self.question['question_text'] = self.question['question_text'].strip('\n').replace("\'", "")
     curr = conn.cursor()
     if self.question is None:
     	self.question['user'] = 'bob'
@@ -76,8 +57,7 @@ class parsePage:
     curr = conn.cursor()
     try:
         for answer in self.answers:
-    	    answer['answer'] = answer['answer'].strip('\n')
-    	    answer['answer'] = answer['answer'].replace("\'", "")
+    	    answer['answer'] = answer['answer'].strip('\n').replace("\'", "")
 	    print answer['user']
 	    if answer['user'] is None:
 	        answer['user'] = 'bob'
@@ -91,20 +71,38 @@ class parsePage:
     curr.close()
     conn.close()
 
-  # these will be overloaded in the modules
+  def makeDOM(self):
+    return BeautifulSoup(self.html)
+
+  def run(self):
+    try:
+        self.question = self.getQuestion()
+        self.answers = self.getAnswers()
+        if self.verbose:
+            print self.question
+            print str(len(self.answers)) + ' answers found'
+        #self.insertQuestion()
+        #self.insertAnswers()
+        return True
+    except Exception, e:
+        print e
+        return False
+
   def getQuestion(self):
     raise subClassError('getQuestion is not implemented')
 
-  def getAnswer(self):
+  def getAnswers(self):
     raise subClassError('getAnswer is not implemented')
 
-  # error reporter class for sexiness
   class subClassError(Exception):
     def __init__(self, value):
       self.value = value
     def __str__(self):
       return repr(self.value)
 
-  def __init__(self, html):
+  def __init__(self, html, verbose):
     self.html = html
+    self.verbose = verbose
     self.dom = self.makeDOM()
+    
+#print parsePage(urllib2.urlopen('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').read())

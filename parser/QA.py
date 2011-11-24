@@ -22,10 +22,22 @@ class QA():
      	elif 'Search Askville' in self.html:
      	    amazon.parseQAPage(self.html, self.verbose).run()
      	else:
-     	    print 'Site is not recognized'
+     	    if self.verbose:
+         	    print 'Site is not recognized'
 
+# When this project is finished this will not be here...handy for debugging though
 QA(urllib2.urlopen('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').read(), False)
 QA(urllib2.urlopen('http://answers.ask.com/Science/Other/how_big_is_the_sun').read(), False)
 QA(urllib2.urlopen('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS').read(), True)
 QA(urllib2.urlopen('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763').read(), True)
 QA(urllib2.urlopen('http://www.facebook.com').read())
+
+#Old URLs, should go back and try these
+#print parseQAPage(urllib2.urlopen('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').read()).getQuestion()
+#print parseQAPage('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').getAnswers()
+#print parseQAPage('http://answers.ask.com/Science/Other/how_big_is_the_sun').getQuestion()
+#print parseQAPage('http://answers.ask.com/Science/Other/how_big_is_the_sun').getAnswers()
+#print parseQAPage('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763').getAnswers()
+#print parseQAPage('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279').getAnswers()
+#print parseQAPage('http://askville.amazon.com/formation-sun-dog/AnswerViewer.do?requestId=5657915').getAnswers()
+#print parseQAPage('http://askville.amazon.com/Universe-expanding-result-Big-Bang-collapse-start/AnswerViewer.do?requestId=74787617').getAnswers()

@@ -36,6 +36,3 @@ def getPostDate(postedOn):
         return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
     else:
         return str(datetime.datetime.now())
-        
-parseQAPage('http://answers.ask.com/Science/Other/how_big_is_the_sun').getQuestion()
-parseQAPage('http://answers.ask.com/Science/Other/how_big_is_the_sun').getAnswers()

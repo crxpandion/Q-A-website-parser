@@ -1,6 +1,8 @@
 #!/usr/bin/python
 import yahoo_answers
 import aol_answers
+import askville_answers
+import ask_answers
 import unittest
 import datetime
 
@@ -18,7 +20,7 @@ class checkScrape(unittest.TestCase):
             self.checkQuestionAndAnswer(yahoo_answers.parseQAPage(self.url))
         if 'http://www.ask.com/answers/' in self.url:
 	    self.checkQuestionAndAnswer(ask_answers.parseQAPage(self.url))
-	if 'http://answers.ask.com/' in self.url:
+        if 'http://answers.ask.com/' in self.url:
      	    self.checkQuestionAndAnswer(ask_answers.parseQAPage(self.url))
      	if 'http://askville.amazon.com/' in self.url:
      	    self.checkQuestionAndAnswer(askville_answers.parseQAPage(self.url))

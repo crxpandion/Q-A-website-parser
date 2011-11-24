@@ -60,8 +60,3 @@ def getPostDate(postedOn):
         return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[0]))).split()[0] + ' 00:00:00'
     else:
         return str(datetime.datetime.now())
-        
-#print parseQAPage('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763').getAnswers()
-#print parseQAPage('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279').getAnswers()
-#print parseQAPage('http://askville.amazon.com/formation-sun-dog/AnswerViewer.do?requestId=5657915').getAnswers()
-print parseQAPage('http://askville.amazon.com/Universe-expanding-result-Big-Bang-collapse-start/AnswerViewer.do?requestId=74787617').getAnswers()

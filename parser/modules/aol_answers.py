@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys
+import sys, urllib2
 sys.path.append('..')
 from bs4 import BeautifulSoup
 from pageParser import parsePage 
@@ -8,7 +8,6 @@ import datetime
 class parseQAPage(parsePage):
     def getQuestion(self):
         q = {}
-        user = {}
         question_field = self.dom.find('div', id='QuestionBlogPostDetails')
         content = question_field.find('div', 'Content')
         q['datetime'] = getPostDate(question_field.find('span', 'PostedOn').string)
@@ -33,7 +32,3 @@ class parseQAPage(parsePage):
 
 def getPostDate(postedOn):
     return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
-
-
-print parseQAPage('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').getQuestion()
-print parseQAPage('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').getAnswers()

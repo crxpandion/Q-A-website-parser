@@ -104,5 +104,3 @@ class parsePage:
     self.html = html
     self.verbose = verbose
     self.dom = self.makeDOM()
-    
-#print parsePage(urllib2.urlopen('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').read())

@@ -18,6 +18,8 @@ class QA_runner():
     except ParserError, m:
       if self.verbose:
         print m.value
+    except:
+      raise 
 
   def choose_parser(self, path):
     def open_website(path):

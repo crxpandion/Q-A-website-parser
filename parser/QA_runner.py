@@ -41,19 +41,21 @@ class QA_runner():
       import askville_answers as p
     else:
       raise ParserError('Error: could not recognize site')
-    return p.parseQAPage(self.html, self.verbose)
+    return p.parseQAPage(self.html, self.path, self.verbose)
 
   def run(self):
     self.parser.run() 
 
 # When this project is finished this will not be here...handy for debugging though
-QA_runner('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279', '', True)
-QA_runner('http://askville.amazon.com/formation-sun-dog/AnswerViewer.do?requestId=5657915', '',True)
-QA_runner('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250', '', False)
-QA_runner('http://answers.ask.com/Science/Other/how_big_is_the_sun', '', False)
-QA_runner('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS', '', False)
-QA_runner('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763', '', True)
-QA_runner('http://www.facebook.com', '', True)
+#QA_runner('test_sites/aol_answers.html', '', True)
+QA_runner('test_sites/yahoo_answers.html', '', True)
+#QA_runner('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279', '', True)
+#QA_runner('http://askville.amazon.com/formation-sun-dog/AnswerViewer.do?requestId=5657915', '',True)
+QA_runner('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250', '', True)
+#QA_runner('http://answers.ask.com/Science/Other/how_big_is_the_sun', '', True)
+QA_runner('http://answers.yahoo.com/question/index;_ylt=Ai47Sv1EzW5EmuoBQIq9m.Oe5HNG;_ylv=3?qid=20110907120254AALqqeS', '', True)
+#QA_runner('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763', '', True)
+#QA_runner('http://www.facebook.com', '', True)
 print "Finished"
 #Old URLs, should go back and try these
 #print parseQAPage(urllib2.urlopen('http://aolanswers.com/questions/poor_people_better_today_four_years_735670198934250').read()).getQuestion()

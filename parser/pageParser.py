@@ -44,7 +44,7 @@ class parsePage:
     	self.question['user'] = 'bob'
     elif not self.question['user']:
         self.question['user'] = 'bob'
-    cnt = curr.execute("INSERT INTO questions VALUES(NULL, '" + self.question['question_text'] + "', '" + self.question['user'] + "', 'something about user', NOW(), '" + self.path + "')")
+    cnt = curr.execute("INSERT INTO questions VALUES(NULL, '" + self.question['question_text'] + "', '" + self.question['user'] + "', '', NOW(), '" + self.path + "')")
     conn.commit()
     curr.execute(" SELECT qid FROM questions where statement like '" + self.question['question_text'] + "'")
     self.question['qid'] = curr.fetchone()[0]

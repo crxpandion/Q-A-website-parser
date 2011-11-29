@@ -7,7 +7,7 @@ import sys
 class parsePage:
   def initDB(self):
     try:
-        conn = mdb.connect(host='localhost', user='username', passwd='pass', db='qaparser')
+        conn = mdb.connect(host='localhost', user='root', passwd='', db='qaparser')
     except:
         print "Error occured while connecting to the database!"
 
@@ -15,7 +15,7 @@ class parsePage:
 
     cur.execute(" CREATE TABLE questions(qid INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(qid), "
         " statement TEXT, username VARCHAR(50), userinfo VARCHAR(100), q_datetime DATE, "
-        " website VARCHAR(200) ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ")
+        " website VARCHAR(200) ) ENGINE=InnoDB DEFAULT CHARSET=utfpath ")
 
     cur.execute(" CREATE TABLE answers(aid INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(aid), "
         " qid INT, FOREIGN KEY(qid) REFERENCES questions(qid), "
@@ -33,16 +33,18 @@ class parsePage:
   def insertQuestion(self):
     conn = None
     try:
-        conn = mdb.connect(host='localhost', user='root', passwd='bala', db='qaparser')
+        conn = mdb.connect(host='localhost', user='root', passwd='', db='qaparser')
     except Exception,e:
         print e# + "Error occured while connecting to the database!"
+    print self.question['question_text']
+    #if self.question['question_text']:
     self.question['question_text'] = self.question['question_text'].strip('\n').replace("\'", "")
     curr = conn.cursor()
     if self.question is None:
     	self.question['user'] = 'bob'
     elif not self.question['user']:
         self.question['user'] = 'bob'
-    cnt = curr.execute("INSERT INTO questions VALUES(NULL, '" + self.question['question_text'] + "', '" + self.question['user'] + "', 'something about user', NOW(), '" + self.url + "')")
+    cnt = curr.execute("INSERT INTO questions VALUES(NULL, '" + self.question['question_text'] + "', '" + self.question['user'] + "', 'something about user', NOW(), '" + self.path + "')")
     conn.commit()
     curr.execute(" SELECT qid FROM questions where statement like '" + self.question['question_text'] + "'")
     self.question['qid'] = curr.fetchone()[0]
@@ -51,14 +53,16 @@ class parsePage:
   def insertAnswers(self):
     conn = None
     try:
-        conn = mdb.connect(host='localhost', user='root', passwd='bala', db='qaparser')
+        conn = mdb.connect(host='localhost', user='root', passwd='', db='qaparser')
     except Exception, e:
         print e#"Error occured while connecting to the database!"
     curr = conn.cursor()
     try:
         for answer in self.answers:
+	    print answer
+	    
     	    answer['answer'] = answer['answer'].strip('\n').replace("\'", "")
-	    print answer['user']
+	    
 	    if answer['user'] is None:
 	        answer['user'] = 'bob'
 	    elif not answer['user']:
@@ -81,8 +85,10 @@ class parsePage:
         if self.verbose:
             print self.question
             print str(len(self.answers)) + ' answers found'
-        #self.insertQuestion()
-        #self.insertAnswers()
+	print "-----------Questions---------"
+        self.insertQuestion()
+	print "------------Answers-----------"
+        self.insertAnswers()
         return True
     except Exception, e:
         print e
@@ -100,7 +106,8 @@ class parsePage:
     def __str__(self):
       return repr(self.value)
 
-  def __init__(self, html, verbose):
+  def __init__(self, html, path, verbose):
     self.html = html
+    self.path = path
     self.verbose = verbose
     self.dom = self.makeDOM()

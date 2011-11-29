@@ -14,12 +14,12 @@ class parsePage:
     cur = conn.cursor()
 
     cur.execute(" CREATE TABLE questions(qid INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(qid), "
-        " statement TEXT, username VARCHAR(50), userinfo VARCHAR(100), q_datetime DATE, "
-        " website VARCHAR(200) ) ENGINE=InnoDB DEFAULT CHARSET=utfpath ")
+        " statement TEXT, username VARCHAR(50), userinfo VARCHAR(100), q_datetime VARCHAR(50), "
+        " website VARCHAR(200) ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ")
 
     cur.execute(" CREATE TABLE answers(aid INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(aid), "
         " qid INT, FOREIGN KEY(qid) REFERENCES questions(qid), "
-        " statement TEXT, username VARCHAR(50), userinfo VARCHAR(100), a_datetime DATE) "
+        " statement TEXT, username VARCHAR(50), userinfo VARCHAR(100), a_datetime VARCHAR(50), upvotes VARCHAR(50)) "
         " ENGINE=InnoDB DEFAULT CHARSET=utf8 ")
 
     #cur.execute(" CREATE TABLE comments(cid INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(cid), "

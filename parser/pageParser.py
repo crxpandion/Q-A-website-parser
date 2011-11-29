@@ -36,15 +36,15 @@ class parsePage:
         conn = mdb.connect(host='localhost', user='root', passwd='', db='qaparser')
     except Exception,e:
         print e# + "Error occured while connecting to the database!"
-    print self.question['question_text']
-    #if self.question['question_text']:
+    print str(self.question['datetime'])
+    
     self.question['question_text'] = self.question['question_text'].strip('\n').replace("\'", "")
     curr = conn.cursor()
     if self.question is None:
     	self.question['user'] = 'bob'
     elif not self.question['user']:
         self.question['user'] = 'bob'
-    cnt = curr.execute("INSERT INTO questions VALUES(NULL, '" + self.question['question_text'] + "', '" + self.question['user'] + "', '', NOW(), '" + self.path + "')")
+    cnt = curr.execute("INSERT INTO questions VALUES(NULL, '" + self.question['question_text'] + "', '" + self.question['user'] + "', '', '" + str(self.question['datetime']) + "', '" + self.path + "')")
     conn.commit()
     curr.execute(" SELECT qid FROM questions where statement like '" + self.question['question_text'] + "'")
     self.question['qid'] = curr.fetchone()[0]
@@ -59,7 +59,7 @@ class parsePage:
     curr = conn.cursor()
     try:
         for answer in self.answers:
-	    print answer
+	    print answer['answer']
 	    
     	    answer['answer'] = answer['answer'].strip('\n').replace("\'", "")
 	    
@@ -67,7 +67,7 @@ class parsePage:
 	        answer['user'] = 'bob'
 	    elif not answer['user']:
 	        answer['user'] = 'bob'
-    	    curr.execute("INSERT INTO answers VALUES(NULL, " + str(self.question['qid']) + ",'" + answer['answer'] + "', '" + answer['user'] + "', '', NOW())")
+    	    curr.execute("INSERT INTO answers VALUES(NULL, " + str(self.question['qid']) + ",'" + answer['answer'] + "', '" + answer['user'] + "', '', '" + str(answer['datetime']) + "', '" + str(answer['upVotes']) + "' )")
 	    conn.commit()
 	    #end of for
     except Exception, e:

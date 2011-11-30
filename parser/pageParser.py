@@ -39,7 +39,7 @@ class parsePage:
     
     self.question['question_text'] = self.question['question_text'].replace('\n', '').replace("\'", "")
     curr = conn.cursor()
-    if self.question is None:
+    if self.question['user'] is None:
         self.question['user'] = 'None'
     elif not self.question['user']:
         self.question['user'] = 'None'
@@ -63,13 +63,16 @@ class parsePage:
         #print self.answers[0]
         for answer in self.answers:
             answer['answer'] = answer['answer'].replace('\n', '').replace("\'", "")
-        if answer['user'] is None:
-            answer['user'] = 'None'
-        elif not answer['user']:
+            if answer['user'] is None:
+            	answer['user'] = 'None'
+            elif not answer['user']:
+		answer['user'] = 'None'
+
             curr.execute("INSERT INTO answers VALUES(NULL, " +\
              str(self.question['qid']) + ",'" + answer['answer'] +\
               "', '" + answer['user'] + "', '', '" + str(answer['datetime']) +\
                "', '" + str(answer['upVotes']) + "' )")
+
         conn.commit()
     except Exception, e:
         print e

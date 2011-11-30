@@ -63,6 +63,7 @@ class parsePage:
         #print self.answers[0]
         for answer in self.answers:
             answer['answer'] = answer['answer'].replace('\n', '').replace("\'", "")
+
             if answer['user'] is None:
             	answer['user'] = 'None'
             elif not answer['user']:

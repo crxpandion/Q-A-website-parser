@@ -47,14 +47,24 @@ class QA_runner():
     self.parser.run() 
 
 # Demos
+# Working
 QA_runner('test_sites/aol_answers.html', '', True)
 
-QA_runner('test_sites/yahoo_answers.html', '', True)
+QA_runner('http://answers.yahoo.com/question/index;_ylt=Av7dHM5LzbXVMewfBcJVBwYjzKIX;_ylv=3?qid=20070519123559AAqxhZf', '', True)
 
-QA_runner('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279', '', True)
+# NOT WORKING
+#QA_runner('test_sites/yahoo_answers.html', '', True)
 
-QA_runner('http://answers.ask.com/Science/Other/how_big_is_the_sun', '', True)
+# WORKING
+QA_runner('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763', '', True)
 
+# NOT WORKING
+#QA_runner('http://askville.amazon.com/sheryl-crow-version-song-sun/AnswerViewer.do?requestId=8804279', '', True)
+
+# NOT WORKING
+#QA_runner('http://answers.ask.com/Science/Other/how_big_is_the_sun', '', True)
+
+# ERROR URL
 QA_runner('http://www.facebook.com', '', True)
 
 print "\nFinished"

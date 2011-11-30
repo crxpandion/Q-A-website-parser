@@ -28,7 +28,14 @@ class parseQAPage(parsePage):
             if user:
                 ans['user'] = answer.find('a', attrs={'title':True})['title']
             a.append(ans)
-        return a
-
+        return a  
+    
 def getPostDate(postedOn):
-    return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
+    if 'year' in postedOn:
+        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]) * 365)).split()[0] + ' 00:00:00'        
+    elif 'month' in postedOn:
+        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]) * 30.5)).split()[0] + ' 00:00:00'
+    elif 'day' in postedOn:
+        return str(datetime.datetime.now() - datetime.timedelta(days=int(postedOn.split()[1]))).split()[0] + ' 00:00:00'
+    else:
+        return str(datetime.datetime.now())

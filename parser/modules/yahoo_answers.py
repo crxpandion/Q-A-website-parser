@@ -13,7 +13,7 @@ class parseQAPage(parsePage):
         datetime = question_field.find('abbr')['title'].split(' ')
         q['question_text'] = title + ' ' + questionLong
         q['datetime'] = datetime[0] + ' ' + datetime[1]
-        q['user'] = question_field.find('div', 'profile vcard')['id']
+        q['user'] = question_field.find('span', 'user').find('span', 'fn')['title']
         return q
 
     def getAnswers(self):
@@ -23,8 +23,8 @@ class parseQAPage(parsePage):
             ans = {}
             datetime = answer.find('abbr')['title'].split(' ')
             ans['datetime'] = datetime[0] + ' ' + datetime[1]
-            ans['answer'] = answer.find('div', 'content').string
+            ans['answer'] = str(answer.find('div', 'content').contents)
             ans['upVotes'] = answer.find('div', 'vote-count').find('span').contents[0]
-            ans['user'] = answer.find('div', 'profile vcard')['id']
+            ans['user'] = answer.find('span', 'user').find('span', 'fn')['title']
             a.append(ans)
         return a

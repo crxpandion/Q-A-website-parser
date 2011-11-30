@@ -8,8 +8,8 @@ class parseQAPage(parsePage):
     def getQuestion(self):
         q = {}
         question_field = self.dom.find('div', id='yan-question')
-        title = question_field.find('h1', 'subject').contents[0].lstrip().rstrip()
-        questionLong = question_field.find('div', 'content').contents[0].lstrip().rstrip()
+        title = str((question_field.find('h1', 'subject').contents[0].lstrip().rstrip()))
+        questionLong = str(question_field.find('div', 'content').contents).lstrip().rstrip()
         datetime = question_field.find('abbr')['title'].split(' ')
         q['question_text'] = title + ' ' + questionLong
         q['datetime'] = datetime[0] + ' ' + datetime[1]

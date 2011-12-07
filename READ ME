@@ -29,3 +29,8 @@ sudo apt-get install mysql-server
 to use MySQL with Python
 sudo apt-get install mysql-python
 update the username and password of mysql in Q-A-website-parser / parser / pageParser.py
+-Import the QA_runner file and instantiate an object, for example:
+  QA_runner('test_sites/yahoo_answers.html', '', True)
+  QA_runner('http://answers.yahoo.com/question/index;_ylt=Av7dHM5LzbXVMewfBcJVBwYjzKIX;_ylv=3?qid=20070519123559AAqxhZf', '', True)
+-This will run the appropriate parser and insert everything into the database. If the database doesn’t exist it will throw an error.  If the database exists but the tables dont exist it will attempt to create them and then run.  If they already exist if will add to the existing tables.
+Look at the testing.py file inside of modules for an of how to setup testing.

@@ -24,7 +24,10 @@ class parseQAPage(parsePage):
             datetime = answer.find('abbr')['title'].split(' ')
             ans['datetime'] = datetime[0] + ' ' + datetime[1]
             ans['answer'] = str(answer.find('div', 'content').contents)
-            ans['upVotes'] = answer.find('div', 'vote-count').find('span').contents[0]
+            if answer.find('div', 'vote-count'):
+                ans['upVotes'] = answer.find('div', 'vote-count').find('span').contents[0]
+            else:
+                ans['upVotes'] = 0
             ans['user'] = answer.find('span', 'user').find('span', 'fn')['title']
             a.append(ans)
         return a

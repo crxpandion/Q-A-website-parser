@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys, urllib2, re
+import sys, urllib2, re, os
 sys.path.append('modules')
 
 class ParserError(Exception):
@@ -52,11 +52,18 @@ class QA_runner():
     self.parser.run() 
 
 # Demos
-for i in range(1, 10):
-       for j in range(1, 10):
-               filename = "test_sites/00000%d_00000%d"%(i,j)
-               print filename
-               QA_runner(filename, '', True)
+path = "test_sites"
+listing = os.listdir(path)
+for filename in listing:
+    print filename
+    QA_runner(path + '/' + filename, '', True)
+
+#for i in range(1, 10):
+#    for j in range(1, 10):
+#
+#	 filename = "../../Downloads/test_sites/00000%d_00000%d"%(i,j)
+#        print filename
+#        QA_runner(filename, '', True)
                
 #QA_runner('test_sites/000004_000001', '', True)
 #QA_runner('test_sites/aol_answers.html', '', True)

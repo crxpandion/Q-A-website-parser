@@ -32,22 +32,33 @@ class QA_runner():
     if path:
       self.html = open_website(path)
     if 'on AOL Answers' in self.html:
+      print 'aol'
       import aol_answers as p
-    elif 'Yahoo! Answers' in self.html:
+    elif '- Yahoo! Answers\">' in self.html:
+      print 'yahoo'
       import yahoo_answers as p
     elif 'Ask.com' in self.html:
+      print 'ask'
       import ask_answers as p
     elif 'Search Askville' in self.html:
+      print 'askville'
       import askville_answers as p
     else:
       raise ParserError('\nError: could not recognize site')
+      
     return p.parseQAPage(self.html, self.path, self.verbose)
 
   def run(self):
     self.parser.run() 
 
 # Demos
-QA_runner('test_sites/fail.html', '', True)
+for i in range(1, 10):
+       for j in range(1, 10):
+               filename = "test_sites/00000%d_00000%d"%(i,j)
+               print filename
+               QA_runner(filename, '', True)
+               
+#QA_runner('test_sites/000004_000001', '', True)
 #QA_runner('test_sites/aol_answers.html', '', True)
 #QA_runner('test_sites/yahoo_answers.html', '', True)
 #QA_runner('http://answers.yahoo.com/question/index;_ylt=Av7dHM5LzbXVMewfBcJVBwYjzKIX;_ylv=3?qid=20070519123559AAqxhZf', '', True)

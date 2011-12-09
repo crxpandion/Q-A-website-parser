@@ -40,7 +40,7 @@ class QA_runner():
     elif 'Ask.com' in self.html:
       print 'ask'
       import ask_answers as p
-    elif 'Search Askville' in self.html:
+    elif 'Askville' in self.html:
       print 'askville'
       import askville_answers as p
     else:
@@ -54,12 +54,14 @@ class QA_runner():
 # Demos
 for i in range(1, 10):
        for j in range(1, 10):
-               filename = "test_sites/00000%d_00000%d"%(i,j)
+               filename = "test_sites_HONGYU/00000%d_00000%d"%(i,j)
                print filename
                QA_runner(filename, '', True)
                
 #QA_runner('test_sites/000004_000001', '', True)
-#QA_runner('test_sites/aol_answers.html', '', True)
+QA_runner('test_sites/aol_answers.html', '', True)
+QA_runner('http://aolanswers.com/questions/aol_desktop_mac_crashes_186037077871272', '', True)
+
 #QA_runner('test_sites/yahoo_answers.html', '', True)
 #QA_runner('http://answers.yahoo.com/question/index;_ylt=Av7dHM5LzbXVMewfBcJVBwYjzKIX;_ylv=3?qid=20070519123559AAqxhZf', '', True)
 #QA_runner('http://askville.amazon.com/long-sun-Vitamin-day/AnswerViewer.do?requestId=76403763', '', True)

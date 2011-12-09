@@ -68,10 +68,11 @@ class parsePage:
             	answer['user'] = 'None'
             elif not answer['user']:
                 answer['user'] = 'None'
-        curr.execute("INSERT INTO answers VALUES(NULL, " +\
-             str(self.question['qid']) + ",'" + answer['answer'] +\
+
+            curr.execute("INSERT INTO answers VALUES(NULL, " +\
+              str(self.question['qid']) + ",'" + answer['answer'] +\
               "', '" + answer['user'] + "', '', '" + str(answer['datetime']) +\
-               "', '" + str(answer['upVotes']) + "' )")
+              "', '" + str(answer['upVotes']) + "' )")
 
         conn.commit()
     except Exception, e:

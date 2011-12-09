@@ -60,7 +60,6 @@ class parsePage:
         print e #"Error occured while connecting to the database!"
     curr = conn.cursor()
     try:
-        #print self.answers[0]
         for answer in self.answers:
             answer['answer'] = answer['answer'].replace('\n', '').replace("\'", "")
 
@@ -68,15 +67,16 @@ class parsePage:
             	answer['user'] = 'None'
             elif not answer['user']:
                 answer['user'] = 'None'
-
-            curr.execute("INSERT INTO answers VALUES(NULL, " +\
-              str(self.question['qid']) + ",'" + answer['answer'] +\
-              "', '" + answer['user'] + "', '', '" + str(answer['datetime']) +\
-              "', '" + str(answer['upVotes']) + "' )")
-
+            try:
+                curr.execute("INSERT INTO answers VALUES(NULL, " +\
+                unicode(self.question['qid']) + ",'" + unicode(answer['answer']) +\
+                "', '" + unicode(answer['user']) + "', '', '" + unicode(answer['datetime']) +\
+                "', '" + unicode(answer['upVotes']) + "' )")
+            except:
+                print ''
         conn.commit()
     except Exception, e:
-        print e
+        print 'e'
     curr.close()
     conn.close()
 

@@ -67,9 +67,8 @@ class parsePage:
             if answer['user'] is None:
             	answer['user'] = 'None'
             elif not answer['user']:
-		answer['user'] = 'None'
-
-            curr.execute("INSERT INTO answers VALUES(NULL, " +\
+                answer['user'] = 'None'
+        curr.execute("INSERT INTO answers VALUES(NULL, " +\
              str(self.question['qid']) + ",'" + answer['answer'] +\
               "', '" + answer['user'] + "', '', '" + str(answer['datetime']) +\
                "', '" + str(answer['upVotes']) + "' )")

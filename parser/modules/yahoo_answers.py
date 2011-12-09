@@ -36,7 +36,7 @@ class parseQAPage(parsePage):
             except:
                 ans['datetime'] = 'NA'
             try:
-                ans['answer'] = str(answer.find('div', 'content').contents)
+                ans['answer'] = unicode(answer.find('div', 'content').contents)
             except:
                 ans['answer'] = 'NA'
             try:
@@ -47,7 +47,7 @@ class parseQAPage(parsePage):
             except:
                 ans['upVotes'] = 'NA'
             try:
-                ans['user'] = answer.find('span', 'user').find('span', 'fn')['title']
+                ans['user'] = unicode(answer.find('span', 'user').find('span', 'fn')['title'])
             except:
                 ans['user'] = 'NA'
             a.append(ans)

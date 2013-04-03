@@ -1,7 +1,5 @@
-#####ReadMe#####
-
-##Requirements for Using our Tool##
-
+Requirements for Using our Tool
+===============================
 -We recommend running this tool on a Linux operating system with Python version 2.7.2 or later (the BeautifulSoup 4 documentation claims that it will work with Python 3, but this was not tested by us.  Furthermore, we did encounter some issues using Python 2.6; see below).
 -BeautifulSoup 4 and MySQLdb are the major third party modules required 
 for using our tool.  The BeautifulSoup module is included in the tarball.
@@ -10,14 +8,14 @@ for using our tool.  The BeautifulSoup module is included in the tarball.
 
 
 
-##Known Issues/Problems Encountered##
-
+Known Issues/Problems Encountered
+=================================
 One of our group members was using Mac OS X, and problems persisted throughout the project.  Some of these problems were fixed by upgrading his Python version to 2.7.2, but there are still errors that have not yet been resolved.  These errors appear to be due to major rewrites in BeautifulSoup 4.0 that allow for more flexibility with regard to the user selecting his/her deisred HTML parser.  The BeautilfulSoup 4.0 ReadMe file says the user can choose Python’s standard HTML parser, lxml’s HTML parser, or html5lib’s parser.  We chose to stick with Python’s standard HTML parser; perhaps installing one of the others would resolve these issues.
 
 
 
-##How to Use our Tool##
-
+How to Use our Tool
+===================
 -Upgrade/Install Python 2.7.2 or later.  Ample instruction on how to do this is available on the Internet
 -Install the BeautifulSoup 4 module
 uncompress the tarball
